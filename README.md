@@ -25,4 +25,4 @@ Este repositório faz parte de um **desafio pessoal e independente**, criado par
 
 ---
 
-✏️ **Autor:** \Paulo Diego Dos Santos
+✏️ **Autor:** Paulo Diego Dos Santos
