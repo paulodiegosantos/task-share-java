@@ -33,4 +33,25 @@ public class TaskController {
     public void deleteTask(@PathVariable Long id) {
         taskRepository.deleteById(id);
     }
+
+    @PatchMapping("/{id}")
+    public Task updateTaskPartially(@PathVariable Long id, @RequestBody Task updatedTask) {
+        return taskRepository.findById(id).map(task -> {
+            if (updatedTask.getTitle() != null) {
+                task.setTitle(updatedTask.getTitle());
+            }
+            if (updatedTask.getDescription() != null) {
+                task.setDescription(updatedTask.getDescription());
+            }
+            if (updatedTask.getStatus() != null) {
+                task.setStatus(updatedTask.getStatus());
+            }
+            if (updatedTask.getUser() != null) {
+                task.setUser(updatedTask.getUser());
+            }
+            return taskRepository.save(task);
+        }).orElse(null);
+    }
+
+
 }

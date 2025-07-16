@@ -1,5 +1,6 @@
 package com.taskshare.controller;
 
+import com.taskshare.model.Task;
 import com.taskshare.model.User;
 import com.taskshare.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,21 @@ public class UserController {
     public void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
     }
+
+    @PatchMapping("/{id}")
+    public User updateUserPartially(@PathVariable Long id, @RequestBody User updatedUser) {
+        return userRepository.findById(id).map(user -> {
+            if (updatedUser.getUsername() != null) {
+                user.setUsername(updatedUser.getUsername());
+            }
+            if (updatedUser.getEmail() != null) {
+                user.setEmail(updatedUser.getEmail());
+            }
+            if (updatedUser.getPassword() != null) {
+                user.setPassword(updatedUser.getPassword());
+            }
+            return userRepository.save(user);
+        }).orElse(null);
+    }
+
 }
